@@ -1,13 +1,11 @@
 import React, { useReducer } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { initialMessage, messageReducer } from '../reducers/messageReducer';
 
-const reducer = (state, action) => {
-    return state = action.payload;
-}
 
 const Home = () => {
 
-    const [kotha, dispathch] = useReducer(reducer, 'I love React Js');
+    const [messageState, dispatch] = useReducer(messageReducer, initialMessage);
 
   return (
     <Container className='my-5'>
@@ -15,9 +13,16 @@ const Home = () => {
             <Col md={5}>
                 <Card>
                     <Card.Body>
-                        <input type="text" name="name" className='form-control' value={kotha} onChange={ (e) => dispathch({ type: '', payload: e.target.value }) } autoComplete="off" />
+                        <input type="text" name="name" className='form-control'   autoComplete="off" placeholder='Name' value={messageState.name} onChange={ e => dispatch({ payload: { ...messageState, name: e.target.value } }) } />
+                        <br />
+                        <input type="text" name="age" className='form-control'   autoComplete="off" placeholder='Age' value={messageState.age} onChange={ e => dispatch({ payload: { ...messageState, age: e.target.value } }) } />
+                        <br />
+                        <input type="text" name="skill" className='form-control'   autoComplete="off" placeholder='Skill' value={messageState.skill} onChange={ e => dispatch({ payload: { ...messageState, skill: e.target.value } }) } />
+                        <br />
                         <hr />
-                        <h3>{kotha}</h3>
+                        <p>Name: {messageState.name}</p>
+                        <p>Age: {messageState.age}</p>
+                        <p>Skill: {messageState.skill}</p>
                     </Card.Body>
                 </Card>
             </Col>
